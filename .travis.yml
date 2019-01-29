@@ -1,0 +1,25 @@
+language: java
+env:
+  global:
+  - CC_TEST_REPORTER_ID=3f1c0d93a3be444be021f93bdb077079ae9acee47374681435d9292821f4fe0c
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+script:
+- mvn test
+after_script:
+- "./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml"
+- "./cc-test-reporter upload-coverage -d"
+before_deploy:
+- mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+  -v '\[')
+deploy:
+  provider: releases
+  api_key:
+    secure: WBCBuzaxjf94maLnQfzgFHiEmLrGfSsdEF7uimyPMF9HI/+ucN3rtSkUpGX2N/9Ti9l5uypR4ih4GIAr+V5u/IPxrGUWjfGly+wJ5r1n7c87xEFDQFvH6mCxAeAY5DCPt8CNMithoOOU2euVPD7kZBXaPg0gQu7QXluWpCe1xnR76zkgPQPxGfylMzmL/l2cr6agyuRcu5c8XYn4mhjpa1EbGdMel1aDOHSIvEH/PtPiSRsG5fpgCmqSutkfIgC2obqLTMxUno2nDCSxjJCKM2pYl9HIHk7xYZzCPuM+e7WBIubDwRoOIwSh5x79KQ6M3XQEsnHDajj/EOBIQX1N2KeIobM4RTzgCm+++y5tyzveTnsyvD5sGU3S4R39z1Qyy7Nqhh8prOA6kpOswiQvVwgwsPjbsSLe8YmUc6rn6eTq0Zo2Z89H5w9VH1kgBtOxYO/hxrFZc6SEhwjEX3l2iCe1bY6Cs1htp+10epaAmJvwf1CpZb8yncLkTed2DOJkq22EO7s9Vwbrk2I3JDTfVREo6F8ZdWLEDwaJkoxnSeeTkiA5TR+58Z4Fg7Q/WUks+nVePbfHk4pdC3l2XE9JSEgpPlPH6CbB9uRWzCOJbzXDibNkKVx5Ht0hQP24Cqu1sEJoeoQgT7++kFzMI3M001ZB6I9xJu84Q31bUppHVis=
+  file: ".travis.yml"
+  on:
+    repo: trickl/palette
