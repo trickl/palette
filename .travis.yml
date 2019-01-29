@@ -1,7 +1,7 @@
 language: java
 env:
   global:
-  - CC_TEST_REPORTER_ID=3f1c0d93a3be444be021f93bdb077079ae9acee47374681435d9292821f4fe0c
+  - CC_TEST_REPORTER_ID=3b8e5d9f5be5a2e67f63b704a6c2f96ffe460dc19af746fa137e2d70a110ec5d
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
   > ./cc-test-reporter
