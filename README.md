@@ -1,8 +1,5 @@
 # Trickl Palette
 
-
-# Trickl Language
-
 [![build_status](https://travis-ci.com/trickl/palette.svg?branch=master)](https://travis-ci.com/trickl/palette)
 [![Maintainability](https://api.codeclimate.com/v1/badges/68447bed3afc81bc7450/maintainability)](https://codeclimate.com/github/trickl/palette/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68447bed3afc81bc7450/test_coverage)](https://codeclimate.com/github/trickl/palette/test_coverage)
