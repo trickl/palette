@@ -5,7 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68447bed3afc81bc7450/test_coverage)](https://codeclimate.com/github/trickl/palette/test_coverage)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This is a port of the Android Support Palette library to work outside the Android ecosystem.
+This is a Java port of the Android Support Palette library to work outside the Android ecosystem.
 
 ### Prerequisites
 
