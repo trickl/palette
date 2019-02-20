@@ -7,6 +7,8 @@
 
 This is a Java port of the Android Support Palette library to work outside the Android ecosystem.
 
+##### Figure - An example image and its extracted color profiles given the default maximum color count (16) for the palette.
+
 ![Example Image](https://developer.android.com/training/material/images/palette-library-color-profiles_2-1_2x.png)
 
 ### Prerequisites
