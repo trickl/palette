@@ -7,6 +7,8 @@
 
 This is a Java port of the Android Support Palette library to work outside the Android ecosystem.
 
+![Example Image](https://developer.android.com/training/material/images/palette-library-color-profiles_2-1_2x.png)
+
 ### Prerequisites
 
 Requires Maven and a Java 6 compiler installed on your system.
