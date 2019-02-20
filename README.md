@@ -9,7 +9,9 @@ This is a Java port of the Android Support Palette library to work outside the A
 
 From the Android support pages -
 ```
-Good visual design is essential for a successful app, and color schemes are a primary component of design. The palette library is a support library that extracts prominent colors from images to help you create visually engaging apps.
+Good visual design is essential for a successful app, and color schemes are a primary component of design. 
+The palette library is a support library that extracts prominent colors from images to help you create
+visually engaging apps.
 ```
 
 ##### Figure - An example image and its extracted color profiles given the default maximum color count (16) for the palette.
