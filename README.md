@@ -1,5 +1,5 @@
 # Trickl Palette
-
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.trickl/palette/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.trickl/palette)
 [![build_status](https://travis-ci.com/trickl/palette.svg?branch=master)](https://travis-ci.com/trickl/palette)
 [![Maintainability](https://api.codeclimate.com/v1/badges/68447bed3afc81bc7450/maintainability)](https://codeclimate.com/github/trickl/palette/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68447bed3afc81bc7450/test_coverage)](https://codeclimate.com/github/trickl/palette/test_coverage)
@@ -15,15 +15,25 @@ From the Android support pages -
 
 ![Example Image](https://developer.android.com/training/material/images/palette-library-color-profiles_2-1_2x.png)
 
-### Prerequisites
 
-Requires Maven and a Java 6 compiler installed on your system.
+Installation
+============
+
+To install from Maven Central:
+
+```xml
+<dependency>
+  <groupId>com.github.trickl</groupId>
+  <artifactId>palette</artifactId>
+  <version>0.1.1</version>
+</dependency>
+```
 
 ## Usage
 
 See the Junit tests for usage
 
-### Installing
+### Building
 
 To download the library into a folder called "palette" run
 
