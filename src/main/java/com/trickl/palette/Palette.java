@@ -45,11 +45,11 @@ import lombok.NonNull;
  *
  * These can be retrieved from the appropriate getter method.
  *
- * <p>Instances are created with a {@link Builder} which supports several options to tweak the
+ * <p>Instances are created with a {@link com.trickl.palette.Palette.Builder} which supports several options to tweak the
  * generated Palette. See that class' documentation for more information.
  *
  * <p>Generation should always be completed on a background thread, ideally the one in which you
- * load your image on. {@link Builder} supports both synchronous and asynchronous generation:
+ * load your image on. {@link com.trickl.palette.Palette.Builder} supports both synchronous and asynchronous generation:
  *
  * <pre>
  * // Synchronous
@@ -62,18 +62,11 @@ import lombok.NonNull;
  *     }
  * });
  * </pre>
+ *
+ * @author tgee
+ * @version $Id: $Id
  */
 public final class Palette {
-
-  /**
-   * Listener to be used with {@link #generateAsync(BufferedImage, PaletteAsyncListener)} or {@link
-   * #generateAsync(BufferedImage, int, PaletteAsyncListener)}
-   */
-  public interface PaletteAsyncListener {
-
-    /** Called when the {@link Palette} has been generated. */
-    void onGenerated(Palette palette);
-  }
 
   static final int DEFAULT_RESIZE_BITMAP_AREA = 112 * 112;
   static final int DEFAULT_CALCULATE_NUMBER_COLORS = 16;
@@ -84,27 +77,46 @@ public final class Palette {
   static final String LOG_TAG = "Palette";
   static final boolean LOG_TIMINGS = false;
 
-  /** Start generating a {@link Palette} with the returned {@link Builder} instance. */
+  /**
+   * Start generating a {@link com.trickl.palette.Palette} with the returned {@link com.trickl.palette.Palette.Builder} instance.
+   *
+   * @param bitmap a {@link java.awt.image.BufferedImage} object.
+   * @return a {@link com.trickl.palette.Palette.Builder} object.
+   */
   public static Builder from(BufferedImage bitmap) {
     return new Builder(bitmap);
   }
 
   /**
-   * Generate a {@link Palette} from the pre-generated list of {@link Palette.Swatch} swatches. This
-   * is useful for testing, or if you want to resurrect a {@link Palette} instance from a list of
+   * Generate a {@link com.trickl.palette.Palette} from the pre-generated list of {@link com.trickl.palette.Palette.Swatch} swatches. This
+   * is useful for testing, or if you want to resurrect a {@link com.trickl.palette.Palette} instance from a list of
    * swatches. Will return null if the {@code swatches} is null.
+   *
+   * @param swatches a {@link java.util.List} object.
+   * @return a {@link com.trickl.palette.Palette} object.
    */
   public static Palette from(List<Swatch> swatches) {
     return new Builder(swatches).generate();
   }
 
-  /** @deprecated Use {@link Builder} to generate the Palette. */
+  /**
+   * <p>generate.</p>
+   *
+   * @param bitmap a {@link java.awt.image.BufferedImage} object.
+   * @return a {@link com.trickl.palette.Palette} object.
+   */
   @Deprecated
   public static Palette generate(BufferedImage bitmap) {
     return from(bitmap).generate();
   }
 
-  /** @deprecated Use {@link Builder} to generate the Palette. */
+  /**
+   * <p>generate.</p>
+   *
+   * @param bitmap a {@link java.awt.image.BufferedImage} object.
+   * @param numColors a int.
+   * @return a {@link com.trickl.palette.Palette} object.
+   */
   @Deprecated
   public static Palette generate(BufferedImage bitmap, int numColors) {
     return from(bitmap).maximumColorCount(numColors).generate();
@@ -128,13 +140,21 @@ public final class Palette {
     mDominantSwatch = findDominantSwatch();
   }
 
-  /** Returns all of the swatches which make up the palette. */
+  /**
+   * Returns all of the swatches which make up the palette.
+   *
+   * @return a {@link java.util.List} object.
+   */
   @NonNull
   public List<Swatch> getSwatches() {
     return Collections.unmodifiableList(mSwatches);
   }
 
-  /** Returns the targets used to generate this palette. */
+  /**
+   * Returns the targets used to generate this palette.
+   *
+   * @return a {@link java.util.List} object.
+   */
   @NonNull
   public List<Target> getTargets() {
     return Collections.unmodifiableList(mTargets);
@@ -144,6 +164,7 @@ public final class Palette {
    * Returns the most vibrant swatch in the palette. Might be null.
    *
    * @see Target#VIBRANT
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getVibrantSwatch() {
     return getSwatchForTarget(Target.VIBRANT);
@@ -153,6 +174,7 @@ public final class Palette {
    * Returns a light and vibrant swatch from the palette. Might be null.
    *
    * @see Target#LIGHT_VIBRANT
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getLightVibrantSwatch() {
     return getSwatchForTarget(Target.LIGHT_VIBRANT);
@@ -162,6 +184,7 @@ public final class Palette {
    * Returns a dark and vibrant swatch from the palette. Might be null.
    *
    * @see Target#DARK_VIBRANT
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getDarkVibrantSwatch() {
     return getSwatchForTarget(Target.DARK_VIBRANT);
@@ -171,6 +194,7 @@ public final class Palette {
    * Returns a muted swatch from the palette. Might be null.
    *
    * @see Target#MUTED
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getMutedSwatch() {
     return getSwatchForTarget(Target.MUTED);
@@ -180,6 +204,7 @@ public final class Palette {
    * Returns a muted and light swatch from the palette. Might be null.
    *
    * @see Target#LIGHT_MUTED
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getLightMutedSwatch() {
     return getSwatchForTarget(Target.LIGHT_MUTED);
@@ -189,6 +214,7 @@ public final class Palette {
    * Returns a muted and dark swatch from the palette. Might be null.
    *
    * @see Target#DARK_MUTED
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getDarkMutedSwatch() {
     return getSwatchForTarget(Target.DARK_MUTED);
@@ -199,6 +225,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getVibrantSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getVibrantColor(final Color defaultColor) {
     return getColorForTarget(Target.VIBRANT, defaultColor);
@@ -209,6 +236,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getLightVibrantSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getLightVibrantColor(final Color defaultColor) {
     return getColorForTarget(Target.LIGHT_VIBRANT, defaultColor);
@@ -219,6 +247,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getDarkVibrantSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getDarkVibrantColor(final Color defaultColor) {
     return getColorForTarget(Target.DARK_VIBRANT, defaultColor);
@@ -229,6 +258,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getMutedSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getMutedColor(final Color defaultColor) {
     return getColorForTarget(Target.MUTED, defaultColor);
@@ -239,6 +269,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getLightMutedSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getLightMutedColor(final Color defaultColor) {
     return getColorForTarget(Target.LIGHT_MUTED, defaultColor);
@@ -249,6 +280,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getDarkMutedSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getDarkMutedColor(final Color defaultColor) {
     return getColorForTarget(Target.DARK_MUTED, defaultColor);
@@ -257,6 +289,9 @@ public final class Palette {
   /**
    * Returns the selected swatch for the given target from the palette, or {@code null} if one could
    * not be found.
+   *
+   * @param target a {@link com.trickl.palette.Target} object.
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getSwatchForTarget(@NonNull final Target target) {
     return mSelectedSwatches.get(target);
@@ -266,6 +301,8 @@ public final class Palette {
    * Returns the selected color for the given target from the palette as an RGB packed int.
    *
    * @param defaultColor value to return if the swatch isn't available
+   * @param target a {@link com.trickl.palette.Target} object.
+   * @return a {@link java.awt.Color} object.
    */
   public Color getColorForTarget(@NonNull final Target target, final Color defaultColor) {
     Swatch swatch = getSwatchForTarget(target);
@@ -277,6 +314,8 @@ public final class Palette {
    *
    * <p>The dominant swatch is defined as the swatch with the greatest population (frequency) within
    * the palette.
+   *
+   * @return a {@link com.trickl.palette.Palette.Swatch} object.
    */
   public Swatch getDominantSwatch() {
     return mDominantSwatch;
@@ -287,6 +326,7 @@ public final class Palette {
    *
    * @param defaultColor value to return if the swatch isn't available
    * @see #getDominantSwatch()
+   * @return a {@link java.awt.Color} object.
    */
   public Color getDominantColor(Color defaultColor) {
     return mDominantSwatch != null ? mDominantSwatch.getColor() : defaultColor;
@@ -420,6 +460,7 @@ public final class Palette {
     /**
      * Return this swatch's HSL values. hsv[0] is Hue [0 .. 360) hsv[1] is Saturation [0...1] hsv[2]
      * is Lightness [0...1]
+     * @return HSL values
      */
     public float[] getHsl() {
       if (mHsl == null) {
@@ -437,6 +478,7 @@ public final class Palette {
     /**
      * Returns an appropriate color to use for any 'title' text which is displayed over this {@link
      * Swatch}'s color. This color is guaranteed to have sufficient contrast.
+    * @return An appropriate color
      */
     public Color getTitleTextColor() {
       ensureTextColorsGenerated();
@@ -446,6 +488,7 @@ public final class Palette {
     /**
      * Returns an appropriate color to use for any 'body' text which is displayed over this {@link
      * Swatch}'s color. This color is guaranteed to have sufficient contrast.
+     * @return An appropriate color
      */
     public Color getBodyTextColor() {
       ensureTextColorsGenerated();
@@ -549,7 +592,8 @@ public final class Palette {
     private final List<Filter> mFilters = new ArrayList<>();
     private Rectangle mRegion;
 
-    /** Construct a new {@link Builder} using a source {@link BufferedImage} */
+    /** Construct a new {@link Builder} using a source {@link BufferedImage}
+    * @param bitmap source image */
     public Builder(BufferedImage bitmap) {
       if (bitmap == null) {
         throw new IllegalArgumentException("BufferedImage is not valid");
@@ -570,6 +614,7 @@ public final class Palette {
     /**
      * Construct a new {@link Builder} using a list of {@link Swatch} instances. Typically only used
      * for testing.
+     * @param swatches list of swatches
      */
     public Builder(List<Swatch> swatches) {
       if (swatches == null || swatches.isEmpty()) {
@@ -582,11 +627,13 @@ public final class Palette {
 
     /**
      * Set the maximum number of colors to use in the quantization step when using a {@link
-     * android.graphics.BufferedImage} as the source.
+     * java.awt.image.BufferedImage} as the source.
      *
      * <p>Good values for depend on the source image type. For landscapes, good values are in the
      * range 10-16. For images which are largely made up of people's faces then this value should be
      * increased to ~24.
+     * @param colors maximum number of colors
+     * @return a new builder
      */
     @NonNull
     public Builder maximumColorCount(int colors) {
@@ -595,15 +642,16 @@ public final class Palette {
     }
 
     /**
-     * Set the resize value when using a {@link android.graphics.BufferedImage} as the source. If
+     * Set the resize value when using a {@link java.awt.image.BufferedImage} as the source. If
      * the bitmap's largest dimension is greater than the value specified, then the bitmap will be
      * resized so that its largest dimension matches {@code maxDimension}. If the bitmap is smaller
      * or equal, the original is used as-is.
      *
+     * @return A new builder
      * @deprecated Using {@link #resizeBufferedImageArea(int)} is preferred since it can handle
      *     abnormal aspect ratios more gracefully.
      * @param maxDimension the number of pixels that the max dimension should be scaled down to, or
-     *     any value <= 0 to disable resizing.
+     *     any value &lt;= 0 to disable resizing.
      */
     @NonNull
     @Deprecated
@@ -614,7 +662,7 @@ public final class Palette {
     }
 
     /**
-     * Set the resize value when using a {@link android.graphics.BufferedImage} as the source. If
+     * Set the resize value when using a {@link java.awt.image.BufferedImage} as the source. If
      * the bitmap's area is greater than the value specified, then the bitmap will be resized so
      * that its area matches {@code area}. If the bitmap is smaller or equal, the original is used
      * as-is.
@@ -624,7 +672,8 @@ public final class Palette {
      * is lost in the resulting image and thus less precision for color selection.
      *
      * @param area the number of pixels that the intermediary scaled down BufferedImage should
-     *     cover, or any value <= 0 to disable resizing.
+     *     cover, or any value &lt;= 0 to disable resizing.
+     * @return A new builder
      */
     @NonNull
     public Builder resizeBufferedImageArea(final int area) {
@@ -636,6 +685,7 @@ public final class Palette {
     /**
      * Clear all added filters. This includes any default filters added automatically by {@link
      * Palette}.
+     * @return A new builder
      */
     @NonNull
     public Builder clearFilters() {
@@ -648,6 +698,7 @@ public final class Palette {
      * resulting palette.
      *
      * @param filter filter to add.
+     * @return A new builder
      */
     @NonNull
     public Builder addFilter(Filter filter) {
@@ -666,6 +717,7 @@ public final class Palette {
      * @param top The top of the rectangle used for the region.
      * @param right The right side of the rectangle used for the region.
      * @param bottom The bottom of the rectangle used for the region.
+     * @return A new builder
      */
     @NonNull
     public Builder setRegion(int left, int top, int right, int bottom) {
@@ -682,7 +734,8 @@ public final class Palette {
       return this;
     }
 
-    /** Clear any previously region set via {@link #setRegion(int, int, int, int)}. */
+    /** Clear any previously region set via {@link #setRegion(int, int, int, int)}.
+    * @return A new builder */
     @NonNull
     public Builder clearRegion() {
       mRegion = null;
@@ -693,6 +746,8 @@ public final class Palette {
      * Add a target profile to be generated in the palette.
      *
      * <p>You can retrieve the result via {@link Palette#getSwatchForTarget(Target)}.
+     * @param target Target profile
+     * @return A new builder
      */
     @NonNull
     public Builder addTarget(@NonNull final Target target) {
@@ -705,6 +760,7 @@ public final class Palette {
     /**
      * Clear all added targets. This includes any default targets added automatically by {@link
      * Palette}.
+     * @return A new builder
      */
     @NonNull
     public Builder clearTargets() {
@@ -714,7 +770,8 @@ public final class Palette {
       return this;
     }
 
-    /** Generate and return the {@link Palette} synchronously. */
+    /** Generate and return the {@link Palette} synchronously.
+     * @return The generated palette */
     @NonNull
     public Palette generate() {
       final TimingLogger logger = LOG_TIMINGS ? new TimingLogger(LOG_TAG, "Generation") : null;
@@ -879,7 +936,6 @@ public final class Palette {
      * @param rgb the color in RGB888.
      * @param hsl HSL representation of the color.
      * @return true if the color is allowed, false if not.
-     * @see Builder#addFilter(Filter)
      */
     boolean isAllowed(int rgb, float[] hsl);
   }

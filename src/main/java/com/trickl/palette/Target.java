@@ -19,11 +19,14 @@ package com.trickl.palette;
 import com.trickl.validation.constraints.FloatRange;
 
 /**
- * A class which allows custom selection of colors in a {@link Palette}'s generation. Instances
- * can be created via the {@link Builder} class.
+ * A class which allows custom selection of colors in a {@link com.trickl.palette.Palette}'s generation. Instances
+ * can be created via the {@link com.trickl.palette.Target.Builder} class.
  *
- * <p>To use the target, use the {@link Palette.Builder#addTarget(Target)} API when building a
+ * <p>To use the target, use the {@link com.trickl.palette.Palette.Builder#addTarget(Target)} API when building a
  * Palette.</p>
+ *
+ * @author tgee
+ * @version $Id: $Id
  */
 public final class Target {
 
@@ -132,6 +135,8 @@ public final class Target {
 
     /**
      * The minimum saturation value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getMinimumSaturation() {
@@ -140,6 +145,8 @@ public final class Target {
 
     /**
      * The target saturation value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getTargetSaturation() {
@@ -148,6 +155,8 @@ public final class Target {
 
     /**
      * The maximum saturation value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getMaximumSaturation() {
@@ -156,6 +165,8 @@ public final class Target {
 
     /**
      * The minimum lightness value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getMinimumLightness() {
@@ -164,6 +175,8 @@ public final class Target {
 
     /**
      * The target lightness value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getTargetLightness() {
@@ -172,6 +185,8 @@ public final class Target {
 
     /**
      * The maximum lightness value for this target.
+     *
+     * @return a float.
      */
     @FloatRange(from = 0, to = 1)
     public float getMaximumLightness() {
@@ -186,6 +201,7 @@ public final class Target {
      * being close to the target value has on selection.</p>
      *
      * @see #getTargetSaturation()
+     * @return a float.
      */
     public float getSaturationWeight() {
         return mWeights[INDEX_WEIGHT_SAT];
@@ -199,6 +215,7 @@ public final class Target {
      * being close to the target value has on selection.</p>
      *
      * @see #getTargetLightness()
+     * @return a float.
      */
     public float getLightnessWeight() {
         return mWeights[INDEX_WEIGHT_LUMA];
@@ -210,6 +227,8 @@ public final class Target {
      *
      * <p>The larger the weight, relative to the other weights, the more important that a
      * color's population being close to the most populous has on selection.</p>
+     *
+     * @return a float.
      */
     public float getPopulationWeight() {
         return mWeights[INDEX_WEIGHT_POP];
@@ -219,6 +238,8 @@ public final class Target {
      * Returns whether any color selected for this target is exclusive for this target only.
      *
      * <p>If false, then the color can be selected for other targets.</p>
+     *
+     * @return a boolean.
      */
     public boolean isExclusive() {
         return mIsExclusive;
@@ -294,6 +315,7 @@ public final class Target {
 
         /**
          * Create a new builder based on an existing {@link Target}.
+         * @param target existing target
          */
         public Builder(Target target) {
             mTarget = new Target(target);
@@ -301,6 +323,8 @@ public final class Target {
 
         /**
          * Set the minimum saturation value for this target.
+         * @param value minium saturation
+         * @return new builder
          */
         public Builder setMinimumSaturation(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mSaturationTargets[INDEX_MIN] = value;
@@ -309,6 +333,8 @@ public final class Target {
 
         /**
          * Set the target/ideal saturation value for this target.
+         * @param value target saturation
+         * @return new builder
          */
         public Builder setTargetSaturation(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mSaturationTargets[INDEX_TARGET] = value;
@@ -317,6 +343,8 @@ public final class Target {
 
         /**
          * Set the maximum saturation value for this target.
+         * @param value maximum saturation
+         * @return new builder
          */
         public Builder setMaximumSaturation(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mSaturationTargets[INDEX_MAX] = value;
@@ -325,6 +353,8 @@ public final class Target {
 
         /**
          * Set the minimum lightness value for this target.
+         * @param value minimum lightness
+         * @return new builder
          */
         public Builder setMinimumLightness(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mLightnessTargets[INDEX_MIN] = value;
@@ -333,6 +363,8 @@ public final class Target {
 
         /**
          * Set the target/ideal lightness value for this target.
+         * @param value target lightness
+         * @return new builder
          */
         public Builder setTargetLightness(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mLightnessTargets[INDEX_TARGET] = value;
@@ -341,6 +373,8 @@ public final class Target {
 
         /**
          * Set the maximum lightness value for this target.
+         * @param value maximum lightness
+         * @return  new builder
          */
         public Builder setMaximumLightness(@FloatRange(from = 0, to = 1) float value) {
             mTarget.mLightnessTargets[INDEX_MAX] = value;
@@ -356,6 +390,8 @@ public final class Target {
          * <p>A weight of 0 means that it has no weight, and thus has no
          * bearing on the selection.</p>
          *
+         * @param weight saturation weight
+         * @return new builder
          * @see #setTargetSaturation(float)
          */
         public Builder setSaturationWeight(@FloatRange(from = 0) float weight) {
@@ -372,6 +408,8 @@ public final class Target {
          * <p>A weight of 0 means that it has no weight, and thus has no
          * bearing on the selection.</p>
          *
+         * @param weight target lightness weight
+         * @return new builder
          * @see #setTargetLightness(float)
          */
         public Builder setLightnessWeight(@FloatRange(from = 0) float weight) {
@@ -388,6 +426,8 @@ public final class Target {
          *
          * <p>A weight of 0 means that it has no weight, and thus has no
          * bearing on the selection.</p>
+         * @param weight population weight
+         * @return new builder
          */
         public Builder setPopulationWeight(@FloatRange(from = 0) float weight) {
             mTarget.mWeights[INDEX_WEIGHT_POP] = weight;
@@ -400,6 +440,7 @@ public final class Target {
          *
          * @param exclusive true if any the color is exclusive to this target, or false is the
          *                  color can be selected for other targets.
+         * @return new builder
          */
         public Builder setExclusive(boolean exclusive) {
             mTarget.mIsExclusive = exclusive;
@@ -408,6 +449,7 @@ public final class Target {
 
         /**
          * Builds and returns the resulting {@link Target}.
+         * @return the target
          */
         public Target build() {
             return mTarget;

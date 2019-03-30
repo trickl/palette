@@ -43,6 +43,9 @@ import java.util.logging.Logger;
  *     D/TAG     ( 3459): methodA:      6 ms, work C
  *     D/TAG     ( 3459): methodA: end, 16 ms
  * </pre>
+ *
+ * @author tgee
+ * @version $Id: $Id
  */
 public class TimingLogger {
 

@@ -21,7 +21,12 @@ import com.trickl.validation.constraints.IntRange;
 import java.awt.Color;
 import lombok.NonNull;
 
-/** A set of color-related utility methods, building upon those available in {@code Color}. */
+/**
+ * A set of color-related utility methods, building upon those available in {@code Color}.
+ *
+ * @author tgee
+ * @version $Id: $Id
+ */
 public final class ColorUtils {
 
   private static final double XYZ_WHITE_REFERENCE_X = 95.047;
@@ -37,7 +42,13 @@ public final class ColorUtils {
 
   private ColorUtils() {}
 
-  /** Composite two potentially translucent colors over each other and returns the result. */
+  /**
+   * Composite two potentially translucent colors over each other and returns the result.
+   *
+   * @param foreground a {@link java.awt.Color} object.
+   * @param background a {@link java.awt.Color} object.
+   * @return a {@link java.awt.Color} object.
+   */
   public static Color compositeColors(Color foreground, Color background) {
     int bgAlpha = background.getAlpha();
     int fgAlpha = foreground.getAlpha();
@@ -63,6 +74,9 @@ public final class ColorUtils {
    * Returns the luminance of a color as a float between {@code 0.0} and {@code 1.0}.
    *
    * <p>Defined as the Y component in the XYZ representation of {@code color}.
+   *
+   * @param color a {@link java.awt.Color} object.
+   * @return a double.
    */
   @FloatRange(from = 0.0f, to = 1.0f)
   public static double calculateLuminance(Color color) {
@@ -78,6 +92,10 @@ public final class ColorUtils {
    *
    * <p>Formula defined <a
    * href="http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef">here</a>.
+   *
+   * @param foreground a {@link java.awt.Color} object.
+   * @param background a {@link java.awt.Color} object.
+   * @return a double.
    */
   public static double calculateContrast(Color foreground, Color background) {
     if (background.getAlpha() != 255) {
@@ -284,7 +302,13 @@ public final class ColorUtils {
     return new Color(r, g, b);
   }
 
-  /** Set the alpha component of {@code color} to be {@code alpha}. */
+  /**
+   * Set the alpha component of {@code color} to be {@code alpha}.
+   *
+   * @param color a {@link java.awt.Color} object.
+   * @param alpha a int.
+   * @return a {@link java.awt.Color} object.
+   */
   public static Color setAlphaComponent(Color color, @IntRange(from = 0x0, to = 0xFF) int alpha) {
     if (alpha < 0 || alpha > 255) {
       throw new IllegalArgumentException("alpha must be between 0 and 255.");
@@ -502,7 +526,13 @@ public final class ColorUtils {
     return XYZToColor(result[0], result[1], result[2]);
   }
 
-  /** Returns the euclidean distance between two LAB colors. */
+  /**
+   * Returns the euclidean distance between two LAB colors.
+   *
+   * @param labX an array of double.
+   * @param labY an array of double.
+   * @return a double.
+   */
   public static double distanceEuclidean(@NonNull double[] labX, @NonNull double[] labY) {
     return Math.sqrt(
         Math.pow(labX[0] - labY[0], 2)
@@ -533,6 +563,7 @@ public final class ColorUtils {
    * @param color1 the first ARGB color
    * @param color2 the second ARGB color
    * @param ratio the blend ratio of {@code color1} to {@code color2}
+   * @return a {@link java.awt.Color} object.
    */
   public static Color blendARGB(
       Color color1, Color color2, @FloatRange(from = 0.0f, to = 1.0f) float ratio) {

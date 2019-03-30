@@ -11,6 +11,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * <p>FloatRange class.</p>
+ *
+ * @author tgee
+ * @version $Id: $Id
+ */
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = FloatRangeValidator.class)

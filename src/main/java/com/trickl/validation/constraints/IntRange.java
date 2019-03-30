@@ -11,6 +11,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * <p>IntRange class.</p>
+ *
+ * @author tgee
+ * @version $Id: $Id
+ */
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = IntRangeValidator.class)
